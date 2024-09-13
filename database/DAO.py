@@ -52,3 +52,22 @@ class DAO():
             cursor.close()
             cnx.close()
         return result
+
+    @staticmethod
+    def getAllShapes():
+        conn = DBConnect.get_connection()
+
+        result = []
+
+        cursor = conn.cursor(dictionary=True)
+        query = """select distinct shape from sighting s 
+                           where shape != "" """
+
+        cursor.execute(query)
+
+        for row in cursor:
+            result.append(row['shape'])
+
+        cursor.close()
+        conn.close()
+        return result
